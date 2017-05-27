@@ -60,7 +60,11 @@
     <ClInclude Include="Util.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="AddAccDlg.h">
+=======
+    <ClInclude Include="SaveBMP.h">
+>>>>>>> 62364b4e3a03e35e4fe599eb6097845775dda527
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,7 +105,11 @@
     <ClCompile Include="Util.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="AddAccDlg.cpp">
+=======
+    <ClCompile Include="SaveBMP.cpp">
+>>>>>>> 62364b4e3a03e35e4fe599eb6097845775dda527
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
