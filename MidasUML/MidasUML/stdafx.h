@@ -33,6 +33,9 @@ enum ASSOCIATION_TYPE { INHERITANCE, DEPENDENCY };
 
 #include <afxcontrolbars.h>     // MFC의 리본 및 컨트롤 막대 지원
 
+#pragma comment(lib, "gdiplus")
+using namespace Gdiplus;
+
 
 
 

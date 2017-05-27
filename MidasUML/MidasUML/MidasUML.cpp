@@ -56,6 +56,8 @@ CMidasUMLApp::CMidasUMLApp()
 
 CMidasUMLApp theApp;
 
+GdiplusStartupInput gdiplusStartupInput;
+ULONG_PTR gdiplusToken;
 
 // CMidasUMLApp 초기화
 
@@ -141,6 +143,10 @@ BOOL CMidasUMLApp::InitInstance()
 	// 주 창이 초기화되었으므로 이를 표시하고 업데이트합니다.
 	pMainFrame->ShowWindow(m_nCmdShow);
 	pMainFrame->UpdateWindow();
+
+	//GDI+
+	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	GdiplusShutdown(gdiplusToken);
 
 	return TRUE;
 }
