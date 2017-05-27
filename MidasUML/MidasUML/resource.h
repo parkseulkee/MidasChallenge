@@ -18,6 +18,7 @@
 #define IDS_EDIT_MENU                   306
 #define IDD_ADD                         312
 #define IDD_ADD_ACCOS                   314
+#define IDD_EDIT                        316
 #define IDCANCEL                        1005
 #define IDC_EDIT1                       1006
 #define IDC_VAR_ACC                     1007
@@ -35,10 +36,13 @@
 #define IDC_COMBO1                      1018
 #define IDC_LIST4                       1019
 #define IDC_COMBO2                      1019
+#define IDC_LIST1                       1019
 #define IDC_LIST5                       1020
 #define IDC_COMBO3                      1020
 #define IDC_LIST6                       1021
+#define IDC_BUTTON3                     1021
 #define IDC_LIST7                       1022
+#define IDC_BUTTON4                     1022
 #define IDC_LIST8                       1023
 #define ID_32771                        32771
 #define ID_ADD_CLASS                    32772
@@ -60,9 +64,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32787
-#define _APS_NEXT_CONTROL_VALUE         1019
+#define _APS_NEXT_CONTROL_VALUE         1022
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

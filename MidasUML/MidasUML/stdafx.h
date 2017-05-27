@@ -22,7 +22,7 @@
 // 추가 라이브러리 헤더
 #include <vector>
 enum ACCESS_TYPE { PRIVATE, PROTECTED, PUBLIC };
-enum ASSOCIATION_TYPE { INHERITANCE, DEPENDENCY };
+enum ASSOCIATION_TYPE { INHERITANCE, DEPENDENCY, RELATION, SIDE_RELATION };
 
 #ifndef _AFX_NO_OLE_SUPPORT
 #include <afxdtctl.h>           // Internet Explorer 4 공용 컨트롤에 대한 MFC 지원입니다.

@@ -21,6 +21,7 @@ private:
 	int key;
 public:
 	Class getClass(int id) { return classes[id]; }
+	Class* getPointClass(int id) { return &classes[id]; }
 	Class getAssociationClass(int key);
 	void addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function);
 	void deleteClass(int id) {

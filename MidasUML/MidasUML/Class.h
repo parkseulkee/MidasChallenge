@@ -41,6 +41,7 @@ public:
 	void addFunction(Function function) { m_function.push_back(function); }
 	void editVar(int id, ACCESS_TYPE at, CString name, CString type) { m_var[id].edit(at, name, type); }
 	void editName(CString name) { m_name = name; }
+	void editPoint(POINT pnt) { m_point = pnt; }
 	void editFunction(int id, ACCESS_TYPE at, CString return_type, CString name, CString parameter) {
 		m_function[id].edit(at, return_type, name, parameter);
 	}

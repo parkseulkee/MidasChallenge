@@ -49,6 +49,8 @@ void drawAssociation(CDC * pDC, Class Cls1, Class Cls2, ASSOCIATION_TYPE eAssc)
 	Pen Pen(Clr, 2.0);
 	AdjustableArrowCap CapInh(5, 5);
 	AdjustableArrowCap CapDpd(5, 5, 0);
+	AdjustableArrowCap CapSRL(5, 5, 0);
+	//AdjustableArrowCap CapRLT(5, 5, 0);
 	switch (eAssc)
 	{
 	case INHERITANCE:
@@ -57,6 +59,11 @@ void drawAssociation(CDC * pDC, Class Cls1, Class Cls2, ASSOCIATION_TYPE eAssc)
 	case DEPENDENCY:
 		Pen.SetCustomEndCap(&CapDpd);
 		Pen.SetDashStyle(DashStyleDash);
+		break;
+	case RELATION:
+		break;
+	case SIDE_RELATION:
+		Pen.SetCustomEndCap(&CapSRL);
 		break;
 	}
 

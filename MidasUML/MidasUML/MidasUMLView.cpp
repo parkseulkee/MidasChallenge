@@ -19,6 +19,8 @@
 #define new DEBUG_NEW
 #endif
 
+int	giSelClass = -1;
+CPoint gLstPnt;
 
 // CMidasUMLView
 
@@ -39,6 +41,9 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_COMMAND(ID_DELETE_ASSOC, &CMidasUMLView::OnDeleteAssoc)
 	ON_COMMAND(ID_DELETE_CLASS, &CMidasUMLView::OnDeleteClass)
 	ON_WM_RBUTTONDOWN()
+	ON_COMMAND(ID_EDIT_CLASS, &CMidasUMLView::OnEditClass)
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -298,34 +303,30 @@ void CMidasUMLView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
-	
-	//CString str1;
-	//str1.Format(_T("(%d,%d)      "), point.x, point.y);
-	//CDC *pDC = GetDC();
-	//pDC->TextOutW(0, 0, str1);
+	CMidasUMLDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
 
-	//CMidasUMLDoc* pDoc = GetDocument();
-	//ASSERT_VALID(pDoc);
-	//if (!pDoc)
-	//	return;
-
-	//for (int i = 0; i < pDoc->getAssocSize(); i++) {
-	//	Association _association = pDoc->getAssociation(i);
-	//	Class main = pDoc->getAssociationClass(_association.getMainKey());
-	//	Class sub = pDoc->getAssociationClass(_association.getSubKey());
-
-	//	POINT Pnt1, Pnt2;
-	//	getShortPoint(main, sub, &Pnt1, &Pnt2);
-	//	if (chkOnAssociation(Pnt1, Pnt2, point))
-	//	{
-	//		CString str;
-	//		str.Format(_T("%d (%d,%d) (%d, %d)"), i, Pnt1.x, Pnt1.y, Pnt2.x, Pnt2.y);
-	//		MessageBox(str);
-	//	}
-	//}
-	//
+	for (int i = 0; i < pDoc->getSize(); i++) {
+		Class _class = pDoc->getClass(i);
+		if (chkOnClass(_class, point))
+		{
+			giSelClass = i;
+			gLstPnt = point;
+			break;
+		}
+	}
 
 	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CMidasUMLView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	giSelClass = -1;
+	CView::OnLButtonUp(nFlags, point);
 }
 
 
@@ -399,4 +400,42 @@ void CMidasUMLView::OnRButtonDown(UINT nFlags, CPoint point)
 			selectClass = i;
 		}
 	}
+}
+
+
+void CMidasUMLView::OnEditClass()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (selectClass == -1) return;
+	CEditDlg dlg;
+	dlg.selectClass = selectClass;
+	if (dlg.DoModal() != IDOK) return;
+	Invalidate();
+}
+
+
+void CMidasUMLView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (giSelClass != -1)
+	{
+		CDC *pDC = GetDC();
+		CPoint DfPnt = point - gLstPnt;
+		gLstPnt = point;
+
+		CMidasUMLDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		if (!pDoc)
+			return;
+
+		Class * pCls = pDoc->getPointClass(giSelClass);
+		POINT ClsPnt = pCls->getPoint();
+
+		ClsPnt.x += DfPnt.x;
+		ClsPnt.y += DfPnt.y;
+
+		pCls->editPoint(ClsPnt);
+		Invalidate();
+	}
+	CView::OnMouseMove(nFlags, point);
 }

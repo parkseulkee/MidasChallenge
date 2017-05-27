@@ -190,6 +190,7 @@
     <ClInclude Include="Association.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Class.h" />
+    <ClInclude Include="EditDlg.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MidasUML.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="Association.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="Class.cpp" />
+    <ClCompile Include="EditDlg.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MidasUML.cpp" />

@@ -49,6 +49,8 @@ BOOL CAddAccDlg::OnInitDialog()
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	m_accBox.AddString(_T("상속"));
 	m_accBox.AddString(_T("의존"));
+	m_accBox.AddString(_T("연관"));
+	m_accBox.AddString(_T("연관(단)"));
 	m_accBox.SetCurSel(0);
 
 	CMainFrame *pFrame = (CMainFrame *)AfxGetMainWnd();
