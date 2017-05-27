@@ -51,6 +51,7 @@ public:
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 	afx_msg void OnAddAccos();
 	afx_msg void OnButtonBmpSave();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // MidasUMLView.cpp의 디버그 버전
