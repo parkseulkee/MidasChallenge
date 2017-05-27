@@ -106,6 +106,16 @@ bool chkBoundary(POINT Strt, POINT End, POINT Cur)
 	return bRes;
 }
 
+bool chkOnClass(Class Cls, POINT Cur)
+{
+	POINT ClsPnt1 = Cls.getPoint();
+	POINT ClsPnt2;
+	ClsPnt2.x = ClsPnt1.x + Cls.getHorizonSize();
+	ClsPnt2.y = ClsPnt1.y + Cls.getVerticalSize();
+
+	return chkBoundary(ClsPnt1, ClsPnt2, Cur);
+}
+
 bool chkOnAssociation(POINT Strt, POINT End, POINT Cur)
 {
 	bool bRes = false;
