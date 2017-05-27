@@ -32,6 +32,7 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_WM_RBUTTONUP()
 	ON_COMMAND(ID_ADD_CLASS, &CMidasUMLView::OnAddClass)
 	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_ADD_ACCOS, &CMidasUMLView::OnAddAccos)
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -70,6 +71,14 @@ void CMidasUMLView::OnDraw(CDC* pDC)
 		_class.drawClass(pDC);
 	}
 
+	for (int i = 0;i < pDoc->getAssocSize();i++) {
+		Association _association = pDoc->getAssociation(i);
+		Class main = pDoc->getAssociationClass(_association.getMainKey());
+		Class sub = pDoc->getAssociationClass(_association.getSubKey());
+		CString str;
+		str.Format(_T("%d %s %s"), (int)_association.getAssociation(), main.getName(), sub.getName());
+		pDC->TextOutW(0, i * 30, str);
+	}
 	/*{
 		CString strName1("Hello");
 		POINT Point1;
@@ -179,4 +188,12 @@ void CMidasUMLView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	GetCursorPos(&point);
 	ScreenToClient(&point);
 	m_point = point;
+}
+
+
+void CMidasUMLView::OnAddAccos()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CAddAccDlg dlg;
+	if (dlg.DoModal() != IDOK) return;
 }

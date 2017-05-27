@@ -17,6 +17,7 @@
 #define ID_WINDOW_MANAGER               131
 #define IDS_EDIT_MENU                   306
 #define IDD_ADD                         312
+#define IDD_ADD_ACCOS                   314
 #define IDCANCEL                        1005
 #define IDC_EDIT1                       1006
 #define IDC_VAR_ACC                     1007
@@ -31,8 +32,11 @@
 #define IDC_VAR_BUTTON                  1016
 #define IDC_BUTTON2                     1017
 #define IDC_LIST3                       1018
+#define IDC_COMBO1                      1018
 #define IDC_LIST4                       1019
+#define IDC_COMBO2                      1019
 #define IDC_LIST5                       1020
+#define IDC_COMBO3                      1020
 #define IDC_LIST6                       1021
 #define IDC_LIST7                       1022
 #define IDC_LIST8                       1023
@@ -44,14 +48,18 @@
 #define ID_32776                        32776
 #define ID_EDIT_CLASS                   32777
 #define ID_DELETE_CLASS                 32778
+#define ID_32779                        32779
+#define ID_32780                        32780
+#define ID_32781                        32781
+#define ID_ADD_ACCOS                    32782
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1017
+#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_COMMAND_VALUE         32783
+#define _APS_NEXT_CONTROL_VALUE         1019
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

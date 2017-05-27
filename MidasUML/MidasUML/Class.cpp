@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "Class.h"
 
-Class::Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function)
+Class::Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function, int key)
 {
 	m_name = name;
 	m_point = point;
 	m_var = var;
 	m_function = function;
+	m_key = key;
 }
 
 

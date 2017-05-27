@@ -2,11 +2,11 @@
 #include "Association.h"
 
 
-Association::Association(ASSOCIATION_TYPE at, CString mainClassName, CString subClassName)
+Association::Association(ASSOCIATION_TYPE at, int mainKey, int subKey)
 {
 	m_at = at;
-	m_mainClassName = mainClassName;
-	m_subClassName = subClassName;
+	m_mainKey = mainKey;
+	m_subKey = subKey;
 }
 
 

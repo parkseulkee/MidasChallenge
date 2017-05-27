@@ -30,6 +30,7 @@ END_MESSAGE_MAP()
 CMidasUMLDoc::CMidasUMLDoc()
 {
 	// TODO: 여기에 일회성 생성 코드를 추가합니다.
+	key = 0;
 }
 
 CMidasUMLDoc::~CMidasUMLDoc()
@@ -47,13 +48,6 @@ BOOL CMidasUMLDoc::OnNewDocument()
 	return TRUE;
 }
 
-Class CMidasUMLDoc::getClass(CString string) 
-{
-	for (int i = 0;i < classes.size();i++) {
-		if (classes[i].getName() == string) return classes[i];
-	}
-}
-
 
 // CMidasUMLDoc serialization
 
@@ -67,6 +61,26 @@ void CMidasUMLDoc::Serialize(CArchive& ar)
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
 	}
+}
+
+void CMidasUMLDoc::addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function)
+{
+	classes.push_back(Class(name, point, var, function, key));
+	key++;
+	UpdateAllViews(NULL);
+}
+
+Class CMidasUMLDoc::getAssociationClass(int key)
+{
+	for (int i = 0;i < classes.size();i++) {
+		if (key == classes[i].getKey()) return classes[i];
+	}
+}
+
+void CMidasUMLDoc::addAssociation(int mainkey, int subKey, ASSOCIATION_TYPE at)
+{
+	associations.push_back(Association(at, mainkey, subKey));
+	UpdateAllViews(NULL);
 }
 
 #ifdef SHARED_HANDLERS

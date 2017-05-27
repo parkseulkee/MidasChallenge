@@ -6,6 +6,8 @@
 #pragma once
 
 #include "Class.h"
+#include "Association.h"
+
 class CMidasUMLDoc : public CDocument
 {
 protected: // serialization에서만 만들어집니다.
@@ -15,17 +17,21 @@ protected: // serialization에서만 만들어집니다.
 // 특성입니다.
 private:
 	std::vector<Class> classes;
+	std::vector<Association> associations;
+	int key;
 public:
 	Class getClass(int id) { return classes[id]; }
-	Class getClass(CString string);
-	void addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function) {
-		classes.push_back(Class(name, point,var,function));
-		UpdateAllViews(NULL);
-	}
+	Class getAssociationClass(int key);
+	void addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function);
 	void deleteClass(int id) {
 		classes.erase(classes.begin() + id);
 	}
 	int getSize() { return classes.size(); }
+
+	Association getAssociation(int id) { return associations[id]; }
+	void addAssociation(int mainkey, int subKey, ASSOCIATION_TYPE at);
+	void deleteAssociation(int id) { associations.erase(associations.begin() + id); }
+	int getAssocSize() { return associations.size(); }
 // 작업입니다.
 public:
 

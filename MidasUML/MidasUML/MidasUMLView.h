@@ -6,6 +6,7 @@
 
 #include "Class.h"
 #include "AddDlg.h"
+#include "AddAccDlg.h"
 
 class CMidasUMLView : public CView
 {
@@ -48,6 +49,7 @@ protected:
 public:
 	afx_msg void OnAddClass();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
+	afx_msg void OnAddAccos();
 };
 
 #ifndef _DEBUG  // MidasUMLView.cpp의 디버그 버전

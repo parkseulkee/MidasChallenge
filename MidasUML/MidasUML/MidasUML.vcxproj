@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddAccDlg.h" />
     <ClInclude Include="AddDlg.h" />
     <ClInclude Include="Association.h" />
     <ClInclude Include="ChildFrm.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Var.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddAccDlg.cpp" />
     <ClCompile Include="AddDlg.cpp" />
     <ClCompile Include="Association.cpp" />
     <ClCompile Include="ChildFrm.cpp" />

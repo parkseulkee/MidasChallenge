@@ -18,14 +18,16 @@
 class Class
 {
 private:
+	int m_key;
 	CString m_name;
 	POINT m_point;
 	std::vector<Var> m_var;
 	std::vector<Function> m_function;
 
 public:
-	Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function);
+	Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function, int key);
 	~Class();
+	int getKey() { return m_key; }
 	int getVarSize() { return m_var.size(); }
 	int getFunctionSize() { return m_function.size(); }
 	CString getName() { return m_name; }
