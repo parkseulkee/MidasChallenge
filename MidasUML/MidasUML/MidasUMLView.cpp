@@ -76,10 +76,35 @@ void CMidasUMLView::OnDraw(CDC* pDC)
 		Association _association = pDoc->getAssociation(i);
 		Class main = pDoc->getAssociationClass(_association.getMainKey());
 		Class sub = pDoc->getAssociationClass(_association.getSubKey());
-		CString str;
+		ASSOCIATION_TYPE eAssc = _association.getAssociation();
+		/*CString str;
 		str.Format(_T("%d %s %s"), (int)_association.getAssociation(), main.getName(), sub.getName());
-		pDC->TextOutW(0, i * 30, str);
+		pDC->TextOutW(0, i * 30, str);*/
+		drawAssociation(pDC, main, sub, eAssc);
 	}
+	/*
+	Graphics Graphics(pDC->m_hDC);
+	Graphics.SetSmoothingMode(SmoothingModeAntiAlias);
+	Color Clr(0, 0, 0);
+	Pen Pen(Clr, 2.0);
+	AdjustableArrowCap CapInh(5, 5);
+	AdjustableArrowCap CapDpd(5, 5, 0);
+	switch (0)
+	{
+	case INHERITANCE:
+		Pen.SetCustomEndCap(&CapInh);
+		break;
+	case DEPENDENCY:
+		Pen.SetCustomEndCap(&CapDpd);
+		Pen.SetDashStyle(DashStyleDash);
+		break;
+	}
+	Graphics.DrawLine(&Pen, 10, 200, 200, 300);
+	Pen.SetCustomEndCap(&CapDpd);
+	Pen.SetDashStyle(DashStyleDash);
+	Graphics.DrawLine(&Pen, 20, 220, 220, 320);
+	*/
+
 	/*{
 		CString strName1("Hello");
 		POINT Point1;

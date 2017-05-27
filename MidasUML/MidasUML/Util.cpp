@@ -38,14 +38,29 @@ void getShortPoint(Class Cls1, Class Cls2, POINT * pPnt1, POINT * pPnt2)
 	return;
 }
 
-void drawRelation(CDC * pDC, Class Cls1, Class Cls2)
+void drawAssociation(CDC * pDC, Class Cls1, Class Cls2, ASSOCIATION_TYPE eAssc)
 {
 	POINT Cls1Pnt, Cls2Pnt;
-
 	getShortPoint(Cls1, Cls2, &Cls1Pnt, &Cls2Pnt);
 
-	pDC->MoveTo(Cls1Pnt);
-	pDC->LineTo(Cls2Pnt);
+	Graphics Graphics(pDC->m_hDC);
+	Graphics.SetSmoothingMode(SmoothingModeAntiAlias);
+	Color Clr(0, 0, 0);
+	Pen Pen(Clr, 2.0);
+	AdjustableArrowCap CapInh(5, 5);
+	AdjustableArrowCap CapDpd(5, 5, 0);
+	switch (eAssc)
+	{
+	case INHERITANCE:
+		Pen.SetCustomEndCap(&CapInh);
+		break;
+	case DEPENDENCY:
+		Pen.SetCustomEndCap(&CapDpd);
+		Pen.SetDashStyle(DashStyleDash);
+		break;
+	}
+
+	Graphics.DrawLine(&Pen, Cls1Pnt.x, Cls1Pnt.y, Cls2Pnt.x, Cls2Pnt.y);
 
 	return;
 }

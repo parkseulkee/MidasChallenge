@@ -146,7 +146,6 @@ BOOL CMidasUMLApp::InitInstance()
 
 	//GDI+
 	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-	GdiplusShutdown(gdiplusToken);
 
 	return TRUE;
 }
@@ -154,6 +153,8 @@ BOOL CMidasUMLApp::InitInstance()
 int CMidasUMLApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
+	GdiplusShutdown(gdiplusToken);
+
 	return CWinAppEx::ExitInstance();
 }
 
