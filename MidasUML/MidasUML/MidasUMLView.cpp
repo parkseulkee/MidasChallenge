@@ -12,7 +12,7 @@
 
 #include "MidasUMLDoc.h"
 #include "MidasUMLView.h"
-
+#include "SaveBMP.h"
 #include "afxwin.h"
 
 #ifdef _DEBUG
@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_COMMAND(ID_ADD_CLASS, &CMidasUMLView::OnAddClass)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_ADD_ACCOS, &CMidasUMLView::OnAddAccos)
+	ON_COMMAND(ID_BUTTON_BMP_SAVE, &CMidasUMLView::OnButtonBmpSave)
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -234,4 +235,54 @@ void CMidasUMLView::OnAddAccos()
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	CAddAccDlg dlg;
 	if (dlg.DoModal() != IDOK) return;
+}
+
+
+void CMidasUMLView::OnButtonBmpSave()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	// TODO: Add your command handler code here
+	CSaveBMP *sBmp = new CSaveBMP();
+	CDC *pDC = GetDC();
+	CRect rt;
+	GetClientRect(rt);
+
+	/*	CDC BufferDC;
+	BufferDC.CreateCompatibleDC(pDC);
+
+	// 화면 DC와 호환성 있는 메모리 비트맵을 만듦
+	CBitmap bmpBuffer;
+	bmpBuffer.CreateCompatibleBitmap(pDC, rt.right, rt.bottom);
+
+	// 메모리 DC에 메모리 비트맵을 선택
+	CBitmap *pOldBitmap = (CBitmap *)BufferDC.SelectObject(&bmpBuffer);
+
+	BufferDC.BitBlt(0, 0, rt.right, rt.bottom, pDC, 0, 0, SRCCOPY);
+
+	// DC 복원
+	BufferDC.SelectObject(pOldBitmap);
+	*/
+
+
+	// Save Dialog
+	LPCTSTR lpszFilter = (LPCTSTR)"BMP File(*.bmp)|*.bmp|All Files|*.*||";
+	CString strPath;
+	bool m_bDraw = FALSE;
+
+	/// TRUE : Read,  FALSE : Save
+	CFileDialog dlg(FALSE);
+
+	if (dlg.DoModal() == IDOK)
+	{
+		//strPath.Format("%s", dlg.GetFileName());
+		strPath = dlg.GetPathName();
+		//AfxMessageBox(strPath);
+		m_bDraw = TRUE;
+	}
+
+	RedrawWindow();
+
+	if (m_bDraw) {
+		sBmp->SaveBitmapToDirectFile(pDC, rt, 0, strPath);
+	}
 }

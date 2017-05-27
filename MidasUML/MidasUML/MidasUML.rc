@@ -118,6 +118,7 @@ BEGIN
     SEPARATOR
     BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
+    BUTTON      ID_BUTTON_BMP_SAVE
 END
 
 
@@ -309,7 +310,7 @@ CAPTION "관계 추가"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "확인",IDOK,81,76,50,14
-    PUSHBUTTON      "취소",IDCANCEL,142,77,50,14
+    PUSHBUTTON      "취소",2,142,77,50,14
     LTEXT           "main Class",IDC_STATIC,63,30,38,10
     LTEXT           "sub Class",IDC_STATIC,123,30,38,10
     LTEXT           "관계",IDC_STATIC,179,30,38,10
@@ -547,6 +548,11 @@ END
 STRINGTABLE
 BEGIN
     IDS_EDIT_MENU           "편집"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BUTTON_BMP_SAVE      "BMP 파일로 저장"
 END
 
 #endif    // 한국어(대한민국) resources
