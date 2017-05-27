@@ -7,6 +7,7 @@
 // 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
 #ifndef SHARED_HANDLERS
 #include "MidasUML.h"
+#include "Util.h"
 #endif
 
 #include "MidasUMLDoc.h"
@@ -94,6 +95,18 @@ void CMidasUMLView::OnDraw(CDC* pDC)
 
 		Class cls1(strName1, Point1, var, function);
 		cls1.drawClass(pDC);
+
+		POINT Point2;
+		Point2.x = 300;
+		Point2.y = 10;
+
+		Class cls2(strName1, Point2, var, function);
+		cls2.drawClass(pDC);
+
+		POINT Point3, Point4;
+		getShortPoint(cls1, cls2, &Point3, &Point4);
+		pDC->MoveTo(Point3);
+		pDC->LineTo(Point4);
 	}*/
 }
 
