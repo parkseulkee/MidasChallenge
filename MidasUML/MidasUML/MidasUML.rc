@@ -204,6 +204,9 @@ BEGIN
         MENUITEM "클래스 추가",                      ID_ADD_CLASS
         MENUITEM "클래스 수정",                      ID_EDIT_CLASS
         MENUITEM "클래스 삭제",                      ID_DELETE_CLASS
+        MENUITEM "관계 추가",                       ID_ADD_ACCOS
+        MENUITEM "관계 수정",                       ID_32780
+        MENUITEM "관계 삭제",                       ID_32781
     END
 END
 
@@ -300,6 +303,21 @@ BEGIN
     LISTBOX         IDC_LIST8,248,132,35,64,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
+IDD_ADD_ACCOS DIALOGEX 0, 0, 258, 98
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "관계 추가"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,81,76,50,14
+    PUSHBUTTON      "취소",IDCANCEL,142,77,50,14
+    LTEXT           "main Class",IDC_STATIC,63,30,38,10
+    LTEXT           "sub Class",IDC_STATIC,123,30,38,10
+    LTEXT           "관계",IDC_STATIC,179,30,38,10
+    COMBOBOX        IDC_COMBO1,61,44,42,12,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO2,117,44,42,12,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO3,168,44,42,12,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -363,6 +381,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 229
     END
+
+    IDD_ADD_ACCOS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 251
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 92
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -373,6 +399,11 @@ END
 //
 
 IDD_ADD AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ADD_ACCOS AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
