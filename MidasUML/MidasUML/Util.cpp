@@ -64,3 +64,57 @@ void drawAssociation(CDC * pDC, Class Cls1, Class Cls2, ASSOCIATION_TYPE eAssc)
 
 	return;
 }
+
+long double calSlope(POINT Pnt1, POINT Pnt2)
+{
+	return (long double)((Pnt2.y - Pnt1.y) / (Pnt2.x - Pnt1.x));
+}
+
+bool chkMiddle(int nStrt, int nEnd, int nCur)
+{
+	bool bRes = false;
+
+	if ((min(nStrt, nEnd) <= nCur &&
+		max(nStrt, nEnd) >= nCur))
+		bRes = true;
+
+	return bRes;
+}
+
+bool chkBoundary(POINT Strt, POINT End, POINT Cur)
+{
+	bool bRes = false;
+
+	/*
+	if ((min(Strt.x, End.x) <= Cur.x && max(Strt.x, End.x) >= Cur.x) &&
+		(min(Strt.y, End.y) <= Cur.y && max(Strt.y, End.y) >= Cur.y))
+		*/
+	if (chkMiddle(Strt.x, End.x, Cur.x) &&
+		chkMiddle(Strt.y, End.y, Cur.y) )
+		bRes = true;
+
+	return bRes;
+}
+
+bool chkOnAssociation(POINT Strt, POINT End, POINT Cur)
+{
+	bool bRes = false;
+	long double ldSlope = calSlope(Strt, End);
+
+	if (abs(ldSlope) >= 99999 && abs(Cur.x - Strt.x) <= 10 && chkMiddle(Strt.y, End.y, Cur.y))
+		bRes = true;
+	else if (ldSlope == 0 && abs(Cur.y - Strt.y) <= 10 && chkMiddle(Strt.x, End.x, Cur.x))
+		bRes = true;
+	else if (chkBoundary(Strt, End, Cur))
+	{
+		int nX = Cur.x - Strt.x;
+		int nY = Cur.y - Strt.y;
+		long double ldCurSlope = (long double)nY / nX;
+		long double ldEftArea = abs(ldSlope*nX - ldSlope*nX);
+
+		if (ldEftArea >= 0 && ldEftArea <= 0)
+			bRes = true;
+	}
+
+	return bRes;
+}
