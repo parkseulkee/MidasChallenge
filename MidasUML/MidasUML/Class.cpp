@@ -1,6 +1,23 @@
 #include "stdafx.h"
 #include "Class.h"
 
+IMPLEMENT_SERIAL(Class, CObject, 1);
+
+Class::Class(const Class &_class)
+{
+	m_name = _class.m_name;
+	m_point = _class.m_point;
+	m_var = _class.m_var;
+	m_function = _class.m_function;
+	m_key = _class.m_key;
+}
+
+Class::Class()
+{
+	m_name = _T("");
+	m_point = { 0,0 };
+}
+
 Class::Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function, int key)
 {
 	m_name = name;
@@ -125,4 +142,45 @@ void Class::drawClass(CDC * pDC)
 	}
 
 	pDC->SelectObject(pOldFont);
+}
+
+void Class::Serialize(CArchive& ar)
+{
+	if (ar.IsStoring())
+	{	// storing code
+		ar << m_name << m_point << m_key;
+		int varSize = m_var.size();
+		ar << varSize;
+		for (int i = 0;i < varSize;i++)
+			m_var[i].Serialize(ar);
+		int funcSize = m_function.size();
+		ar << funcSize;
+		for (int i = 0;i < funcSize;i++)
+			m_function[i].Serialize(ar);
+	}
+	else
+	{	// loading code
+		ar >> m_name >> m_point >> m_key;
+		int var_size;
+		ar >> var_size;
+
+		std::vector<Var> temp_var(var_size);
+		m_var = temp_var;
+		for (int i = 0;i < var_size;i++) {
+			/*Var var;
+			var.Serialize(ar);
+			m_var.push_back(var);*/
+			m_var[i].Serialize(ar);
+		}
+		int function_size;
+		ar >> function_size;
+		std::vector<Function> temp_function(function_size);
+		m_function = temp_function;
+		for (int i = 0;i < function_size;i++) {
+		/*	Function function;
+			function.Serialize(ar);
+			m_function.push_back(function);*/
+			m_function[i].Serialize(ar);
+		}
+	}
 }

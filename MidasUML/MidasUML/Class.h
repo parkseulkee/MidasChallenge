@@ -15,7 +15,7 @@
 #define STR_CLASS_ATTR	"Attributes"
 #define STR_CLASS_FUNC	"Operation"
 
-class Class
+class Class : public CObject
 {
 private:
 	int m_key;
@@ -25,6 +25,9 @@ private:
 	std::vector<Function> m_function;
 
 public:
+	DECLARE_SERIAL(Class);
+	Class();
+	Class(const Class &_class);
 	Class(CString name, POINT point, std::vector<Var> var, std::vector<Function> function, int key);
 	~Class();
 	int getKey() { return m_key; }
@@ -53,5 +56,15 @@ public:
 	POINT getLeftCenter();
 
 	void drawClass(CDC * pDC);
+
+	Class& operator=(const Class &_class) {
+		m_name = _class.m_name;
+		m_point = _class.m_point;
+		m_var = _class.m_var;
+		m_function = _class.m_function;
+		m_key = _class.m_key;
+		return *this;
+	}
+	virtual void Serialize(CArchive& ar);
 };
 

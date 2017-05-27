@@ -25,12 +25,16 @@ public:
 	void addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function);
 	void deleteClass(int id) {
 		classes.erase(classes.begin() + id);
+		SetModifiedFlag();
 	}
 	int getSize() { return classes.size(); }
 
 	Association getAssociation(int id) { return associations[id]; }
 	void addAssociation(int mainkey, int subKey, ASSOCIATION_TYPE at);
-	void deleteAssociation(int id) { associations.erase(associations.begin() + id); }
+	void deleteAssociation(int id) { 
+		associations.erase(associations.begin() + id);
+		SetModifiedFlag();
+	}
 	int getAssocSize() { return associations.size(); }
 // 작업입니다.
 public:
