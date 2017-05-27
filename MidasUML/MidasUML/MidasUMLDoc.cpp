@@ -44,7 +44,11 @@ BOOL CMidasUMLDoc::OnNewDocument()
 
 	// TODO: 여기에 재초기화 코드를 추가합니다.
 	// SDI 문서는 이 문서를 다시 사용합니다.
-
+	key = 0;
+	std::vector<Class> temp_class;
+	classes = temp_class;
+	std::vector<Association> temp_assoc;
+	associations = temp_assoc;
 	return TRUE;
 }
 
@@ -56,10 +60,41 @@ void CMidasUMLDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: 여기에 저장 코드를 추가합니다.
+		ar << key;
+		int classSize = classes.size();
+		ar << classSize;
+		for (int i = 0;i < classSize;i++)
+			classes[i].Serialize(ar);
+		int assocSize = associations.size();
+		ar << assocSize;
+		for (int i = 0;i < assocSize;i++)
+			associations[i].Serialize(ar);
 	}
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		ar >> key;
+		int class_size;
+		ar >> class_size;
+		
+		std::vector<Class> temp_class(class_size);
+		classes = temp_class;
+		for (int i = 0;i < class_size;i++) {
+		/*	Class _class;
+			_class.Serialize(ar);
+			classes.push_back(_class);*/
+			classes[i].Serialize(ar);
+		}
+		int associations_size;
+		ar >> associations_size;
+		std::vector<Association> temp_accos(associations_size);
+		associations = temp_accos;
+		for (int i = 0;i < associations_size;i++) {
+			/*Association assoc;
+			assoc.Serialize(ar);
+			associations.push_back(assoc);*/
+			associations[i].Serialize(ar);
+		}
 	}
 }
 
@@ -68,6 +103,7 @@ void CMidasUMLDoc::addClass(CString name, POINT point, std::vector<Var> var, std
 	classes.push_back(Class(name, point, var, function, key));
 	key++;
 	UpdateAllViews(NULL);
+	SetModifiedFlag();
 }
 
 Class CMidasUMLDoc::getAssociationClass(int key)
@@ -81,6 +117,7 @@ void CMidasUMLDoc::addAssociation(int mainkey, int subKey, ASSOCIATION_TYPE at)
 {
 	associations.push_back(Association(at, mainkey, subKey));
 	UpdateAllViews(NULL);
+	SetModifiedFlag();
 }
 
 #ifdef SHARED_HANDLERS
