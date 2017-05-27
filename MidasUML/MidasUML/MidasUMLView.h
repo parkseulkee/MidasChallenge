@@ -18,6 +18,7 @@ protected: // serialization에서만 만들어집니다.
 public:
 	CMidasUMLDoc* GetDocument() const;
 	POINT m_point;
+	int selectAssoc;
 // 작업입니다.
 public:
 
@@ -52,6 +53,7 @@ public:
 	afx_msg void OnAddAccos();
 	afx_msg void OnButtonBmpSave();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnDeleteAssoc();
 };
 
 #ifndef _DEBUG  // MidasUMLView.cpp의 디버그 버전
