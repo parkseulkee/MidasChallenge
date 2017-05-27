@@ -37,6 +37,8 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_COMMAND(ID_BUTTON_BMP_SAVE, &CMidasUMLView::OnButtonBmpSave)
 	ON_WM_LBUTTONDOWN()
 	ON_COMMAND(ID_DELETE_ASSOC, &CMidasUMLView::OnDeleteAssoc)
+	ON_COMMAND(ID_DELETE_CLASS, &CMidasUMLView::OnDeleteClass)
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -46,6 +48,7 @@ CMidasUMLView::CMidasUMLView()
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_point = { 0,0 };
 	selectAssoc = -1;
+	selectClass = -1;
 }
 
 CMidasUMLView::~CMidasUMLView()
@@ -229,25 +232,7 @@ void CMidasUMLView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	GetCursorPos(&point);
 	ScreenToClient(&point);
 	m_point = point;
-	
 
-	CMidasUMLDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	for (int i = 0; i < pDoc->getAssocSize(); i++) {
-		Association _association = pDoc->getAssociation(i);
-		Class main = pDoc->getAssociationClass(_association.getMainKey());
-		Class sub = pDoc->getAssociationClass(_association.getSubKey());
-
-		POINT Pnt1, Pnt2;
-		getShortPoint(main, sub, &Pnt1, &Pnt2);
-		if (chkOnAssociation(Pnt1, Pnt2, point))
-		{
-			selectAssoc = i;
-		}
-	}
 }
 
 
@@ -355,4 +340,63 @@ void CMidasUMLView::OnDeleteAssoc()
 	pDoc->deleteAssociation(selectAssoc);
 	Invalidate();
 	selectAssoc = -1;
+}
+
+
+void CMidasUMLView::OnDeleteClass()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMidasUMLDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	if (selectClass == -1)return;
+
+	Class _class = pDoc->getClass(selectClass);
+	int key = _class.getKey();
+
+	for (int i = 0;i < pDoc->getAssocSize();i++) {
+		int mainKey = pDoc->getAssociation(i).getMainKey();
+		int subKey = pDoc->getAssociation(i).getSubKey();
+		if (mainKey == key || subKey == key) {
+			pDoc->deleteAssociation(i);
+		}
+	}
+	pDoc->deleteClass(selectClass);
+	Invalidate();
+	selectClass = -1;
+}
+
+
+void CMidasUMLView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CView::OnRButtonDown(nFlags, point);
+
+
+	CMidasUMLDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+
+	for (int i = 0; i < pDoc->getAssocSize(); i++) {
+		Association _association = pDoc->getAssociation(i);
+		Class main = pDoc->getAssociationClass(_association.getMainKey());
+		Class sub = pDoc->getAssociationClass(_association.getSubKey());
+
+		POINT Pnt1, Pnt2;
+		getShortPoint(main, sub, &Pnt1, &Pnt2);
+		if (chkOnAssociation(Pnt1, Pnt2, point))
+		{
+			selectAssoc = i;
+		}
+	}
+
+	for (int i = 0;i < pDoc->getSize();i++) {
+		Class _class = pDoc->getClass(i);
+		if (chkOnClass(_class, point)) {
+			selectClass = i;
+		}
+	}
 }

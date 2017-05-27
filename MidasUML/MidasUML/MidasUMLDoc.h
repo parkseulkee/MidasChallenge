@@ -25,6 +25,7 @@ public:
 	void addClass(CString name, POINT point, std::vector<Var> var, std::vector<Function> function);
 	void deleteClass(int id) {
 		classes.erase(classes.begin() + id);
+		UpdateAllViews(NULL);
 		SetModifiedFlag();
 	}
 	int getSize() { return classes.size(); }
@@ -33,6 +34,7 @@ public:
 	void addAssociation(int mainkey, int subKey, ASSOCIATION_TYPE at);
 	void deleteAssociation(int id) { 
 		associations.erase(associations.begin() + id);
+		UpdateAllViews(NULL);
 		SetModifiedFlag();
 	}
 	int getAssocSize() { return associations.size(); }

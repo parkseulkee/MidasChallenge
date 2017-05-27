@@ -19,6 +19,7 @@ public:
 	CMidasUMLDoc* GetDocument() const;
 	POINT m_point;
 	int selectAssoc;
+	int selectClass;
 // 작업입니다.
 public:
 
@@ -54,6 +55,8 @@ public:
 	afx_msg void OnButtonBmpSave();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnDeleteAssoc();
+	afx_msg void OnDeleteClass();
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // MidasUMLView.cpp의 디버그 버전
