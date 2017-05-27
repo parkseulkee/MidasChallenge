@@ -206,8 +206,7 @@ BEGIN
         MENUITEM "클래스 수정",                      ID_EDIT_CLASS
         MENUITEM "클래스 삭제",                      ID_DELETE_CLASS
         MENUITEM "관계 추가",                       ID_ADD_ACCOS
-        MENUITEM "관계 수정",                       ID_32780
-        MENUITEM "관계 삭제",                       ID_32781
+        MENUITEM "관계 삭제",                       ID_DELETE_ASSOC
     END
 END
 

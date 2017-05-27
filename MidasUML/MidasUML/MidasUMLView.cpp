@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_COMMAND(ID_ADD_ACCOS, &CMidasUMLView::OnAddAccos)
 	ON_COMMAND(ID_BUTTON_BMP_SAVE, &CMidasUMLView::OnButtonBmpSave)
 	ON_WM_LBUTTONDOWN()
+	ON_COMMAND(ID_DELETE_ASSOC, &CMidasUMLView::OnDeleteAssoc)
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -44,7 +45,7 @@ CMidasUMLView::CMidasUMLView()
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_point = { 0,0 };
-
+	selectAssoc = -1;
 }
 
 CMidasUMLView::~CMidasUMLView()
@@ -228,6 +229,25 @@ void CMidasUMLView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	GetCursorPos(&point);
 	ScreenToClient(&point);
 	m_point = point;
+	
+
+	CMidasUMLDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+
+	for (int i = 0; i < pDoc->getAssocSize(); i++) {
+		Association _association = pDoc->getAssociation(i);
+		Class main = pDoc->getAssociationClass(_association.getMainKey());
+		Class sub = pDoc->getAssociationClass(_association.getSubKey());
+
+		POINT Pnt1, Pnt2;
+		getShortPoint(main, sub, &Pnt1, &Pnt2);
+		if (chkOnAssociation(Pnt1, Pnt2, point))
+		{
+			selectAssoc = i;
+		}
+	}
 }
 
 
@@ -293,32 +313,46 @@ void CMidasUMLView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
-	/*
-	CString str1;
-	str1.Format(_T("(%d,%d)      "), point.x, point.y);
-	CDC *pDC = GetDC();
-	pDC->TextOutW(0, 0, str1);
+	
+	//CString str1;
+	//str1.Format(_T("(%d,%d)      "), point.x, point.y);
+	//CDC *pDC = GetDC();
+	//pDC->TextOutW(0, 0, str1);
 
+	//CMidasUMLDoc* pDoc = GetDocument();
+	//ASSERT_VALID(pDoc);
+	//if (!pDoc)
+	//	return;
+
+	//for (int i = 0; i < pDoc->getAssocSize(); i++) {
+	//	Association _association = pDoc->getAssociation(i);
+	//	Class main = pDoc->getAssociationClass(_association.getMainKey());
+	//	Class sub = pDoc->getAssociationClass(_association.getSubKey());
+
+	//	POINT Pnt1, Pnt2;
+	//	getShortPoint(main, sub, &Pnt1, &Pnt2);
+	//	if (chkOnAssociation(Pnt1, Pnt2, point))
+	//	{
+	//		CString str;
+	//		str.Format(_T("%d (%d,%d) (%d, %d)"), i, Pnt1.x, Pnt1.y, Pnt2.x, Pnt2.y);
+	//		MessageBox(str);
+	//	}
+	//}
+	//
+
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CMidasUMLView::OnDeleteAssoc()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	CMidasUMLDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	for (int i = 0; i < pDoc->getAssocSize(); i++) {
-		Association _association = pDoc->getAssociation(i);
-		Class main = pDoc->getAssociationClass(_association.getMainKey());
-		Class sub = pDoc->getAssociationClass(_association.getSubKey());
-
-		POINT Pnt1, Pnt2;
-		getShortPoint(main, sub, &Pnt1, &Pnt2);
-		if (chkOnAssociation(Pnt1, Pnt2, point))
-		{
-			CString str;
-			str.Format(_T("%d (%d,%d) (%d, %d)"), i, Pnt1.x, Pnt1.y, Pnt2.x, Pnt2.y);
-			MessageBox(str);
-		}
-	}
-	*/
-
-	CView::OnLButtonDown(nFlags, point);
+	if (selectAssoc == -1)return;
+	pDoc->deleteAssociation(selectAssoc);
+	Invalidate();
+	selectAssoc = -1;
 }
