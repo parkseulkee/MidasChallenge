@@ -122,7 +122,7 @@ void CEditDlg::OnBnClickedButton4()
 	CMainFrame *pFrame = (CMainFrame *)AfxGetMainWnd();
 	CChildFrame *pChild = (CChildFrame *)pFrame->GetActiveFrame();
 	CMidasUMLDoc *pDoc = (CMidasUMLDoc *)pChild->GetActiveDocument();
-	pDoc->getClass(selectClass).deleteFunction(id);
+	pDoc->getPointClass(selectClass)->deleteFunction(id);
 }
 
 
