@@ -44,6 +44,7 @@ BEGIN_MESSAGE_MAP(CMidasUMLView, CView)
 	ON_COMMAND(ID_EDIT_CLASS, &CMidasUMLView::OnEditClass)
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // CMidasUMLView 생성/소멸
@@ -438,4 +439,27 @@ void CMidasUMLView::OnMouseMove(UINT nFlags, CPoint point)
 		Invalidate();
 	}
 	CView::OnMouseMove(nFlags, point);
+}
+
+
+int CMidasUMLView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+	CClientDC dc(this);
+	CFont Font, *pOldFont;;
+
+	Font.CreatePointFont(N_FONT_SIZE, _T("굴림체"));
+	pOldFont = dc.SelectObject(&Font);
+
+	CSize csize = dc.GetTextExtent(CString("A"));
+	gnFontWidth = csize.cx;
+	gnFontHeight = csize.cy;
+	gnHeight = (gnFontHeight + N_LINE_PADDING);
+
+	dc.SelectObject(pOldFont);
+
+	return 0;
 }

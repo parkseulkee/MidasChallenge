@@ -3,6 +3,10 @@
 
 IMPLEMENT_SERIAL(Class, CObject, 1);
 
+int	gnFontWidth = N_FONT_WIDTH;
+int	gnFontHeight = N_FONT_HEIGHT;
+int	gnHeight = (N_FONT_HEIGHT + N_LINE_PADDING);
+
 Class::Class(const Class &_class)
 {
 	m_name = _class.m_name;
@@ -56,7 +60,7 @@ int Class::getHorizonSize()
 	tmp = strlen(STR_CLASS_FUNC);
 	if (max < tmp) max = tmp;
 
-	return (max * N_FONT_WIDTH) + (N_MARGIN_X * 2);
+	return (max * gnFontWidth) + (N_MARGIN_X * 2);
 }
 int Class::getVerticalSize()
 {
@@ -64,7 +68,7 @@ int Class::getVerticalSize()
 	int functionsize = getFunctionSize();
 	int nLineCnt = 4 + varsize + functionsize;
 
-	return (nLineCnt * N_FONT_HEIGHT) + ((nLineCnt + 1) * N_LINE_PADDING) + (N_MARGIN_Y * 2); // 숫자 폰트 크기에 맞추기
+	return (nLineCnt * gnFontHeight) + ((nLineCnt + 1) * N_LINE_PADDING) + (N_MARGIN_Y * 2); // 숫자 폰트 크기에 맞추기
 }
 
 POINT Class::getUpCenter() {
@@ -109,9 +113,9 @@ void Class::drawClass(CDC * pDC)
 
 	/* 클래스 이름 출력 */
 	pDC->TextOutW(Point.x, Point.y, CString(STR_CLASS_NAME));
-	Point.y += N_HEIGHT;
+	Point.y += gnHeight;
 	pDC->TextOutW(Point.x, Point.y, getName());
-	Point.y += N_HEIGHT;
+	Point.y += gnHeight;
 
 	/* 분할 선 */
 	pDC->MoveTo(Point.x - N_MARGIN_X, Point.y);
@@ -120,11 +124,11 @@ void Class::drawClass(CDC * pDC)
 
 	/* 속성 출력 */
 	pDC->TextOutW(Point.x, Point.y, CString(STR_CLASS_ATTR));
-	Point.y += N_HEIGHT;
+	Point.y += gnHeight;
 	for (std::vector<Var>::iterator iter = m_var.begin(); iter != m_var.end(); iter++)
 	{
 		pDC->TextOutW(Point.x, Point.y, (*iter).getInfo());
-		Point.y += N_HEIGHT;
+		Point.y += gnHeight;
 	}
 
 	/* 분할 선 */
@@ -134,11 +138,11 @@ void Class::drawClass(CDC * pDC)
 
 	/* 오퍼레이션 출력 */
 	pDC->TextOutW(Point.x, Point.y, CString(STR_CLASS_FUNC));
-	Point.y += N_HEIGHT;
+	Point.y += gnHeight;
 	for (std::vector<Function>::iterator iter = m_function.begin(); iter != m_function.end(); iter++)
 	{
 		pDC->TextOutW(Point.x, Point.y, (*iter).getInfo());
-		Point.y += N_HEIGHT;
+		Point.y += gnHeight;
 	}
 
 	pDC->SelectObject(pOldFont);

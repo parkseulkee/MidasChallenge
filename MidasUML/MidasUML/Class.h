@@ -15,6 +15,10 @@
 #define STR_CLASS_ATTR	"Attributes"
 #define STR_CLASS_FUNC	"Operation"
 
+extern int	gnFontWidth;
+extern int	gnFontHeight;
+extern int	gnHeight;
+
 class Class : public CObject
 {
 private:
